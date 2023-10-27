@@ -11,7 +11,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import OneHotEncoder
 
 # read data and apply one-hot encoding
-data = pd.read_csv("resources/grandmother/grandmother.csv", header=None)
+data = pd.read_csv("resources/iris/iris.csv", header=None)
 X = data.iloc[:, 0:4]
 y_pre = data.iloc[:, 4:]
 ohe = OneHotEncoder(handle_unknown='ignore', sparse_output=False).fit(y_pre)
@@ -24,7 +24,6 @@ y = torch.tensor(y, dtype=torch.float32)
 # split
 X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=0.7, shuffle=True)
 
-
 class Multiclass(nn.Module):
     def __init__(self):
         super().__init__()
@@ -36,7 +35,6 @@ class Multiclass(nn.Module):
         x = self.act(self.hidden(x))
         x = self.output(x)
         return x
-
 
 # loss metric and optimizer
 model = Multiclass()

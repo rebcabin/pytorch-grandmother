@@ -112,9 +112,10 @@ def visualization_tutorial() -> None:
                 mini_batch = i + 1
                 print(f'{mini_batch = }')
 
-                # The following two lines are not necessary for visualizing
+                # The following lines are not necessary for visualizing
                 # embeddings, despite advice in the tensorboard.
 
+                # torch.save(<arguments?>)  # --- OR ---
                 # saver = tf.train.Checkpoint()
                 # saver.save('runs/model.ckpt')
 
