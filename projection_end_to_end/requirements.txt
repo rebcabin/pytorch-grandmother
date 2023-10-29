@@ -1,0 +1,9 @@
+torch==2
+torchvision
+torchinfo
+torchsummary
+numpy
+scikit-learn
+pandas
+matplotlib
+jupyterlab
