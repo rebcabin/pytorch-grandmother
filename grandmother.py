@@ -49,6 +49,8 @@ y_train = torch.zeros(EPOCHS, BATCH_SIZE, OUT_FEATURES)
 
 
 def set_up_training_data():
+    """Do a projection of the first and third elements of each
+    x vector into the first and second elements of each y vector."""
     for e in range(EPOCHS):
         for b in range(BATCH_SIZE):
             y_train[e, b, 0] = x_train[e, b, 0]
@@ -56,27 +58,28 @@ def set_up_training_data():
 
 
 def train_model():
-    model = define_model()
+    model_ = define_model()
     loss_fn = nn.MSELoss()
-    optimizer = torch.optim.SGD(model.parameters(), lr=0.1)
+    optimizer = torch.optim.SGD(model_.parameters(), lr=0.1)
 
     for e in range(EPOCHS):
-        y_pred = model(x_train[e, :, :])
+        y_pred = model_(x_train[e, :, :])
         loss = loss_fn(y_pred, y_train[e, :, :])
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
 
-    return model
+    return model_
 
 
-def evaluate_model(model, x):
-    result = model(x)
-    return result
+def evaluate_model(model_, x):
+    result_ = model_(x)
+    return result_
 
 
 set_up_training_data()
 model = train_model()
-x_test = torch.tensor([[3.0, 4.0, 5.0]])
+# normalized input (sum of squared is ~1.0)
+x_test = torch.tensor([[.6, .4, .6928]])
 result = evaluate_model(model, x_test)
 print(result)
