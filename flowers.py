@@ -24,6 +24,7 @@ y = torch.tensor(y, dtype=torch.float32)
 # split
 X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=0.7, shuffle=True)
 
+
 class Multiclass(nn.Module):
     def __init__(self):
         super().__init__()
@@ -35,6 +36,7 @@ class Multiclass(nn.Module):
         x = self.act(self.hidden(x))
         x = self.output(x)
         return x
+
 
 # loss metric and optimizer
 model = Multiclass()
