@@ -122,7 +122,7 @@ def visualization_tutorial() -> None:
                 # Check against the validation set
                 running_vloss = 0.0
 
-                net.train(False)  # Don't need to track gradents for validation
+                net.train(False)  # Don't track gradients for validation
                 for j, vdata in enumerate(validation_loader, 0):
                     vinputs, vlabels = vdata
                     voutputs = net(vinputs)

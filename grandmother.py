@@ -11,7 +11,7 @@ import torch.optim as optim
 import tqdm
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import OneHotEncoder
-
+from torch.utils.tensorboard import SummaryWriter
 
 # Choose relatively prime sizes for inner layers so they're easy to track.
 
@@ -62,12 +62,21 @@ def train_model():
     loss_fn = nn.MSELoss()
     optimizer = torch.optim.SGD(model_.parameters(), lr=0.1)
 
+    # TODO: non-working visualization of the loss curve
+    writer = SummaryWriter('runs/grandmother_experiment_1')
+
     for e in range(EPOCHS):
         y_pred = model_(x_train[e, :, :])
         loss = loss_fn(y_pred, y_train[e, :, :])
+        writer.add_scalars(main_tag='Training Loss',
+                           tag_scalar_dict={'Loss': loss},
+                           global_step=e)
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
+
+    writer.flush()
+    writer.close()
 
     return model_
 
