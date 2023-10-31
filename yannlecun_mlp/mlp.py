@@ -1041,8 +1041,8 @@ def imagine_digit(model_, digit, device_, n_iterations=50_000):
                 best_prob_ = _best_prob
                 best_image_ = x[index]
 
-            if ((iteration + 1) % 1000) == 0:
-                print(f'{best_prob_ = }, {index = }')
+            if ((iteration + 1) % 2500) == 0:
+                print(f'{iteration = }, {best_prob_ = }, {index = }')
 
     return best_image_, best_prob_
 
