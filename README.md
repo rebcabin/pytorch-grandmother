@@ -4,7 +4,13 @@ them. Here is what I did on the Mac:
 Create a virtual environment, either via conda or some more ancient method. I
 called mine (unimaginatively) `venv`
 
-In `~/Library/Jupyter/kernels/venv`, deposit this file; name it `kernel.json`
+In `~/Library/Jupyter/kernels/venv`, deposit this file; name it `kernel.json`.
+Obviously, substitute the path to your python environment rather than to mine.
+I think you can choose the `display_name` to whim. When you start `jupyter
+notebook`, choose the kernel by name in the `kernel` menu of the notebook
+runner. This is supposed to work in PyCharm, as well, but I haven't figured out
+how to choose the kernel for a notebook in PyCharm. If you figure it out, post a
+Pull Request against this `README` file, please.
 
 ```json
 {
