@@ -18,16 +18,15 @@ import io
 """Introduction
 ------------
 
-This walk-through was inspired by [Building Neural Networks
-with Python Code and Math in Detail Part
+This walk-through was inspired by [Building Neural Networks with Python Code
+and Math in Detail Part
 II](https://pub.towardsai.net/building-neural-networks-with-python-code-and-math-in-detail-ii-bbe8accbf3d1)
-and follows my walk-through of [building a
+and follows my [Glenn K. Lockwood's]walk-through of [building a
 perceptron](https://www.glennklockwood.com/data-intensive/analysis/perceptron.html).
-We will not rehash concepts covered previously and instead
-move quickly through the parts of building this neural network
-that follow the same pattern as building a perceptron.
+This neural network follows the same pattern as building a perceptron covered
+previously.
 
-As with the perceptron guide, we first implementing our model
+As with the perceptron guide, first implementing the model
 using only numpy, then go on to implement it using PyTorch to
 understand what PyTorch is doing mathematically.
 

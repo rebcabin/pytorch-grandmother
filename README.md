@@ -1,5 +1,5 @@
-To run Jupyter kernels in this repository, you will need to create a kernel for
-them. Here is what I did on the Mac:
+To run Jupyter notebooks in this repository, you will need to create a kernel
+for them. Here is what I did on the Mac:
 
 Create a virtual environment, either via conda or some more ancient method. I
 called mine (unimaginatively) `venv`
