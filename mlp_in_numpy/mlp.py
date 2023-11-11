@@ -1,4 +1,7 @@
-"""From
+"""
+# Logic Gates Machine-Learned in Numpy
+
+From
 https://www.glennklockwood.com/data-intensive/analysis/multilayer-perceptron.html
 
 This is a blind scrape of the original HTML converted to
@@ -15,52 +18,49 @@ import time
 import torch
 import io
 
-"""Introduction
-------------
+"""
+## Introduction
 
-This walk-through was inspired by [Building Neural Networks with Python Code
-and Math in Detail Part
+This walk-through was inspired by [Building Neural Networks
+with Python Code and Math in Detail Part
 II](https://pub.towardsai.net/building-neural-networks-with-python-code-and-math-in-detail-ii-bbe8accbf3d1)
-and follows my [Glenn K. Lockwood's]walk-through of [building a
+and follows my [Glenn K. Lockwood's] walk-through of [building
+a
 perceptron](https://www.glennklockwood.com/data-intensive/analysis/perceptron.html).
-This neural network follows the same pattern as building a perceptron covered
-previously.
+This neural network follows the same pattern as building a
+perceptron covered previously.
 
-As with the perceptron guide, first implementing the model
-using only numpy, then go on to implement it using PyTorch to
+As with the perceptron guide, first implement the model using
+only numpy, then go on to implement it using PyTorch to
 understand what PyTorch is doing mathematically.
 
-Problem Statement
------------------
+## Problem Statement
 
-As with our previous perceptron, we will be modeling a logical
-OR gate with two inputs (x1 and x2), one output (f). Unlike
-before though, we will create a _multilayer perceptron_ where
-we chain two linear models together instead of using just one.
+Model a logical OR gate with a two-layer perceptron.. The gate
+has two inputs (x1 and x2), one output (f).
+"""
 
-First let's get our input loaded. This time, we'll use a CSV
-as our input since this is a pretty common data format that we
-would expect to encounter in the real world. We load it into a
-Pandas DataFrame, then peel off the last column to use as our
-ground-truth results. The first two columns then become our
-input:
+"""
+# Load Data
 
+Load input from a CSV into a Pandas DataFrame. Treat the last
+column as ground truth and the first two columns as input:
 """
 
 input_csv = """
 observation,input1,input2,output
-1,0,0,0
-2,0,1,1
-3,1,0,1
-4,1,1,1
+1, 0, 0, 0
+2, 0, 1, 1
+3, 1, 0, 1
+4, 1, 1, 1
 """
 
 dataset = pandas.read_csv(io.StringIO(input_csv), index_col="observation")
 inputs = dataset.iloc[:, :-1].to_numpy().astype('float32')
 ground_truth = dataset.iloc[:, -1].to_numpy().reshape(-1, 1).astype('float32')
 
-print("Inputs:\n{}".format(inputs))
-print("Truth: \n{}".format(ground_truth))
+print(f'Inputs:\n{inputs}')
+print(f'Truth:\n{ground_truth}')
 
 """
 >     Inputs:
@@ -74,15 +74,15 @@ print("Truth: \n{}".format(ground_truth))
 >      [1.]
 >      [1.]]
 
-As before, we have the same _learning rate_ hyperparameter R,
-and we might as well use the same value. We also have to
-decide how many iterations of training we wish to use,
-`NUM_ITERATIONS`. """
+Set the learning rate and the number of iterations. The values
+of these hyperparameter are guesses at this point.
+"""
 
 LEARNING_RATE = 0.05
 NUM_ITERATIONS = 10000
 
-"""### Defining the network
+"""
+## Define the network
 
 We are implementing a neural network to model the same OR gate
 as our perceptron network before, so it has the same number of
@@ -787,22 +787,20 @@ matplotlib.pyplot.show()
 
 This tells us two interesting things:
 
-1. The single perceptron converges very quickly, but it
-   converges on a set of weights that results in a high
-   overall error.
+1. The single perceptron converges very quickly, but on
+   weights that results in a high overall error.
 
 2. The multilayer perceptron spends quite a while just
-   flapping around and not really getting anywhere before it
-   finds a path to start converging on some better weights.
+   flapping around before it finds a path to converge on
+   better weights.
 
 This tells us that the single perceptron network was unlikely
-to ever get close to a lower error no matter how much we
-trained. By comparison, the multilayer perceptron's error was
-still dropping when we stopped training at 50,000 steps by
-comparison which means we still had room to improve. However,
-the rate at which error was dropping looks like it started
-leveling off, and we were unlikely to get substantially lower
-error by training more.
+to ever get a lower error no matter how much we trained. By
+comparison, the multilayer perceptron's error was still
+dropping when we stopped training at 50,000 steps, meaning we
+still had room to improve. However, the rate at which error
+was dropping started leveling off, and we were unlikely to get
+substantially lower error by training more.
 
 This is pretty dissatisfying because our results, despite
 being better than the single perceptron case, still had a
@@ -818,9 +816,9 @@ different random weights by changing the
 `torch.manual_seed(1)`. When I did this, I wound up with four
 final predictions that were all within 0.10 of the ground
 truth! Relatedly, try an extra feature (neuron) to your hidden
-layer. This will scramble your starting weights and add change
-the behavior of this learning rate. When I did this, I wound
-up getting a much lower error.
+layer. This will scramble your starting weights and change the
+behavior of this learning rate. When I did this, I wound up
+getting a much lower error.
 
 This speaks to how _artisinal_ this process of designing
 neural networks to model phenomena like OR or XOR gates can
@@ -835,5 +833,4 @@ network for specific scenarios, but until you develop that
 sixth sense, it may be easier to start with someone else's
 neural network architecture for a similar problem and begin
 tweaking from there.
-
 """
